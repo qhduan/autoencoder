@@ -19,28 +19,44 @@ MNIST，数据/=255.0
 
 
 第一层 稀疏层
+
   t1.alpha = 0.5; // 学习率
-  t1.lambda = 0.003; // L2
-  t1.momentum = 0.9;
-  t1.run(5000, batch, train_images, train_images); // 5000次GD
+
+  t1.lambda = 0.003; // L2 权重衰减
+
+  t1.momentum = 0.9; // 动量
+
+  t1.run(5000, batch, train_images, train_images); // 5000次batch大小的SGD，误差最后在12.5左右
 
 第二层 稀疏层
+
   t2.alpha = 0.5;
+
   t2.lambda = 0.003;
+
   t2.momentum = 0.9;
-  t2.run(5000, batch, new_train, new_train);
+
+  t2.run(5000, batch, new_train, new_train); // 误差最后在3.8左右
 
 第三层 softmax
+
   ts.alpha = 0.5;
+
   ts.lambda = 0.003;
+
   ts.momentum = 0.9;
-  ts.run(10000, batch, new_train, train_labels);
+
+  ts.run(10000, batch, new_train, train_labels); // 误差最后在0.8左右
 
 最终调整：
+
   tf.alpha = 0.1;
+
   tf.lambda = 0.0;
+
   tf.momentum = 0.9;
-  tf.run(50000, batch, train_images, train_labels);
+
+  tf.run(50000, batch, train_images, train_labels); // 误差最后在0.005左右
 
 最终正确率，在MNIST测试集上的binary准确率，不是cost：
 
